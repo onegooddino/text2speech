@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech Conversion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light background color */
+            color: #333; /* Dark text color */
+            padding: 20px;
+            text-align: center; /* Center align all content */
+        }
+        h1, h2 {
+            color: #007bff; /* Vibrant text color */
+        }
+        form {
+            margin: 0 auto; /* Center align the form */
+            max-width: 600px; /* Limit form width */
+            border: 2px solid #007bff; /* Border around form */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            background-color: #fff; /* White background */
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.1); /* Box shadow for depth */
+        }
+        label {
+            font-weight: bold;
+        }
+        textarea {
+            width: calc(100% - 22px); /* Adjusting width to accommodate the border */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            background-color: #f8f9fa; /* Lighter background color for textarea */
+            color: #333; /* Dark text color */
+            margin-bottom: 10px; /* Adding margin to separate from the input element */
+        }
+        select {
+            width: calc(100% - 22px); /* Adjusting width to accommodate the border */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #f8f9fa; /* Lighter background color for select */
+            cursor: pointer;
+            color: #333; /* Dark text color */
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .play-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .play-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Text to Speech</h1>
+    <form method="POST" action="/">
+        <textarea id="text" name="text" rows="4" cols="50" required placeholder="Enter your text here..."></textarea><br>
+        <input type="submit" value="Convert">
+    </form>
+    {% if audio_base64 %}
+    <h2>Play Audio</h2>
+    <audio controls>
+        <source src="data:audio/mp3;base64,{{ audio_base64 }}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    {% endif %}
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>
